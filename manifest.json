@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "Hello World Extension",
+  "version": "1.0",
+
+  "permissions": [
+		"identity",
+    "https://mail.google.com/",
+    "https://inbox.google.com/",
+		"http://calendar.google.com/calendar/*",
+		"https://calendar.google.com/calendar/*"
+  ],
+
+	"oauth2": {
+		"client_id": "593122178952-k55ld8ti30g56stjdnbcdu95t2t6okla.apps.googleusercontent.com",
+		"scopes": [
+			"https://www.googleapis.com/auth/calendar"
+		]
+	},
+
+  "content_scripts" : [
+    {
+      "matches": ["https://mail.google.com/*", "https://inbox.google.com/*"],
+      "js": ["public/js/jquery-3.2.1.js", "public/js/inboxsdk.js", "build/index-bundle.js"]
+    }
+  ]
+}

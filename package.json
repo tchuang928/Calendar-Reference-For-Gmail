@@ -1,0 +1,39 @@
+{
+  "name": "gmailchromeext",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register",
+		"build": "webpack -wd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tchuang928/gmailChromeExt.git"
+  },
+  "author": "Tom Huang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tchuang928/gmailChromeExt/issues"
+  },
+  "homepage": "https://github.com/tchuang928/gmailChromeExt#readme",
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "chai": "^3.5.0",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^7.0.1",
+    "flow-bin": "^0.46.0",
+    "mocha": "^3.4.1",
+    "webpack": "^2.5.1"
+  }
+}
