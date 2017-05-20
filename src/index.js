@@ -1,5 +1,17 @@
 InboxSDK.load('1.0', 'sdk_gmailCalPlugin_866256f084').then(function(sdk){
 
+	function requestCalendarData(dateParam, composeView) {
+		let bodyText = composeView.getTextContent();
+		if (bodyText.match(/(Sunday$)/gi)) {
+			chrome.runtime.sendMessage({date: dateParam}, function(response) {
+				let res = response.farewell;
+				let linkifyText = bodyText.replace(/(Sunday$)/gi, response.farewell);
+				composeView.setBodyText(linkifyText);
+				setBodyCursorToEnd($('.editable').get(0));
+			});
+		}
+	}
+
 	function setBodyCursorToEnd(ele) {
 		let range = document.createRange();
 		let sel = window.getSelection();
@@ -34,12 +46,11 @@ InboxSDK.load('1.0', 'sdk_gmailCalPlugin_866256f084').then(function(sdk){
 
 
 	sdk.Compose.registerComposeViewHandler(function(composeView){
-		let composeBody = document.getElementById(':oy');
-		let composeSubject = document.getElementById(':nv');
 		$('.editable').on('input', function() {
 			//$('#\\:oy').text('Hello world');
 			//autoLink(composeView);
 			calendarKeyWord(composeView);
+			requestCalendarData('Sunday', composeView);
 		}); 
 	});
 });

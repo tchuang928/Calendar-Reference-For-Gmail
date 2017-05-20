@@ -5,6 +5,7 @@
 
   "permissions": [
 		"identity",
+		"storage",
     "https://mail.google.com/",
     "https://inbox.google.com/",
 		"http://calendar.google.com/calendar/*",
@@ -15,6 +16,13 @@
 		"client_id": "593122178952-k55ld8ti30g56stjdnbcdu95t2t6okla.apps.googleusercontent.com",
 		"scopes": [
 			"https://www.googleapis.com/auth/calendar"
+		]
+	},
+
+	"background": {
+		"scripts": [
+			"public/js/jquery-3.2.1.js",
+			"src/background.js"
 		]
 	},
 
