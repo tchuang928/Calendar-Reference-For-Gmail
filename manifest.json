@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Hello World Extension",
+  "name": "Meeting Requester for Gmail",
   "version": "1.0",
 
   "permissions": [
@@ -21,15 +21,20 @@
 
 	"background": {
 		"scripts": [
-			"public/js/jquery-3.2.1.js",
+			"src/jquery-3.2.1.js",
 			"src/background.js"
 		]
+	},
+
+	"browser_action": {
+		"default_title": "Meeting Requester for Gmail",
+		"default_popup": "src/browser_action.html"
 	},
 
   "content_scripts" : [
     {
       "matches": ["https://mail.google.com/*", "https://inbox.google.com/*"],
-      "js": ["public/js/jquery-3.2.1.js", "public/js/inboxsdk.js", "build/index-bundle.js"]
+      "js": ["src/jquery-3.2.1.js", "public/js/inboxsdk.js", "build/index-bundle.js"]
     }
   ]
 }

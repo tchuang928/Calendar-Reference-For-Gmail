@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto">
+		<link rel="stylesheet" href="browser_action.css" type="text/css">
+		<script src="jquery-3.2.1.js"></script>
+		<script src="browser_action.js"></script>
+	</head>
+	<body>
+		<header>
+			<div id="actionBar">
+				<img src="img/ic_settings_white.png" id="showOptions" class="spinning">
+			</div>
+			<div id="headerTitle">
+				<a href="https://www.google.com/calendar" target="_blank">
+					<span id="headerText">Google Calendar</span>
+				</a>
+			</div>
+		</header>
+
+		<section>
+			<div id="error">
+				<p id="auth">
+					Meeting Requester for Gmail requires access to your Google Calendar. This is a one-time setup step required before you can use this extension.
+				</p>
+				<p><button class="button" id="authRequired">AUTHORIZE GOOGLE CALENDAR</button></p>
+				<p>
+					<a id="problems" href="#">Problems?</a>
+				</p>
+			</div>
+		</section>
+	</body>
+</html>
