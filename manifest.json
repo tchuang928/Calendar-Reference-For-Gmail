@@ -7,7 +7,6 @@
 		"identity",
 		"storage",
     "https://mail.google.com/",
-    "https://inbox.google.com/",
 		"http://calendar.google.com/calendar/*",
 		"https://calendar.google.com/calendar/*"
   ],
@@ -33,7 +32,7 @@
 
   "content_scripts" : [
     {
-      "matches": ["https://mail.google.com/*", "https://inbox.google.com/*"],
+      "matches": ["https://mail.google.com/*"],
       "js": ["src/jquery-3.2.1.js", "public/js/inboxsdk.js", "build/index-bundle.js"]
     }
   ]

@@ -8,8 +8,13 @@ apiURLs.calendarList = 'https://www.googleapis.com/calendar/v3/users/me/calendar
 
 var fetch = {};
 
-// initial authentication
 fetch.init = function() {
+	fetch.listenForBrowserAction();
+	fetch.listenForInboxSDK();
+}
+
+// initial authentication
+fetch.initAuth = function() {
 	chrome.identity.getAuthToken({'interactive': true}, function(token) {
 		if (chrome.runtime.lastError || !token) {
 			console.log('Access token not granted. Please reload the extension.');
@@ -83,48 +88,49 @@ fetch.calendars = function() {
 	})
 }
 
-// for browser action
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	switch(request.ui) {
-		case 'token':
-			fetch.init();
-			fetch.calendars();
-			break;
-	}
+fetch.listenForBrowserAction = function() {
+	chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+		switch(request.ui) {
+			case 'token':
+				fetch.initAuth();
+				fetch.calendars();
+				break;
+		}
 
-	return true;
-});
+		return true;
+	});
+}
 
+fetch.listenForInboxSDK = function() {
+	chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+		switch(request.date) {
+			case 'Sunday':
+				fetch.calendars();
+				//sendResponse({farewell: 'sunday!'});
+				chrome.storage.local.get('calendars', function(storage){
+					if (chrome.runtime.lastError) {
+						console.log('Error retrieving data');
+					}
+					sendResponse({farewell: storage.calendars});
+				});
+				break;
 
-// for inboxSDK
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	switch(request.date) {
-		case 'Sunday':
-			fetch.calendars();
-			//sendResponse({farewell: 'sunday!'});
-			chrome.storage.local.get('calendars', function(storage){
-				if (chrome.runtime.lastError) {
-					console.log('Error retrieving data');
-				}
-				sendResponse({farewell: storage.calendars});
-			});
-			break;
+			case 'Monday':
+				fetch.calendars();
+				chrome.storage.local.get('calendars', function(storage){
+					if (chrome.runtime.lastError) {
+						console.log('Error retrieving data');
+					}
+					sendResponse({farewell: 'monday!!'});
+				});
+				break;
+		}
 
-		case 'Monday':
-			fetch.calendars();
-			chrome.storage.local.get('calendars', function(storage){
-				if (chrome.runtime.lastError) {
-					console.log('Error retrieving data');
-				}
-				sendResponse({farewell: 'monday!!'});
-			});
-			break;
-	}
+		// response function is called asynchronously
+		return true;
+	});
+}
 
-	// response function is called asynchronously
-	return true;
-});
-
-
+fetch.init();
 
 
