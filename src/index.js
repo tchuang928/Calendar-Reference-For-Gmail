@@ -10,13 +10,17 @@ InboxSDK.load('1.0', 'sdk_gmailCalPlugin_866256f084').then(function(sdk){
 		ele.focus();
 	}
 	
-	function requestCalendarData(dateParam, composeView) {
+	function requestMonday(composeView) {
 		let bodyHTML = composeView.getHTMLContent();
-		if (bodyHTML.match(/(Sunday$)/gi)) {
-			chrome.runtime.sendMessage({date: dateParam}, function(response) {
-				let res = response.farewell;
-				let linkifyHTML = bodyHTML.replace(/(Sunday$)/gi, response.farewell);
+		if (bodyHTML.match(/(Monday$)/gi)) {
+			//let linkifyHTML = bodyHTML.replace(/(Sunday$)/gi, 'test');
+			//composeView.setBodyHTML(linkifyHTML);
+			chrome.runtime.sendMessage({date: 'Monday'}, function(response) {
+				let res = response.data;
+				let linkifyHTML = bodyHTML.replace(/(Monday$)/gi, response.data);
 				composeView.setBodyHTML(linkifyHTML);
+
+				// figure out how to set cursor to end 
 				setBodyCursorToEnd($('.editable').get(0));
 			});
 		}
@@ -36,23 +40,11 @@ InboxSDK.load('1.0', 'sdk_gmailCalPlugin_866256f084').then(function(sdk){
 		}
 	}
 	
-
-	
-	function autoLink(composeView) {
-		let originalText = composeView.getTextContent();
-		if (originalText.match(/(\$date)/gi)) {
-			composeView.insertLinkChipIntoBodyAtCursor('Select time and day', '#', 'https://cdn4.iconfinder.com/data/icons/finance-and-banking-free/64/Finance_financial_planning-32.png'); 
-			//composeView.insertLinkIntoBodyAtCursor('Select time and day', '#');
-		}
-	}
-	
 	sdk.Compose.registerComposeViewHandler(function(composeView){
 		
 		$('.editable').on('input', function() {
-			//$('#\\:oy').text('Hello world');
-			//autoLink(composeView);
 			calendarKeyWord(composeView);
-			requestCalendarData('Sunday', composeView);
+			requestMonday(composeView);
 		}); 
 		
 	});

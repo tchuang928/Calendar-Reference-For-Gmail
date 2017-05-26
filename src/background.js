@@ -121,7 +121,7 @@ fetch.listenForInboxSDK = function() {
 					if (chrome.runtime.lastError) {
 						console.log('Error retrieving data');
 					}
-					sendResponse({farewell: 'monday!!'});
+					sendResponse({data: 'test'});
 				});
 				break;
 		}
