@@ -1,4 +1,4 @@
-# Meeting Requester for Gmail
+# Calendar Reference for Gmail
 
 Chrome Extension to enable adding a reference calendar in Gmail Compose View.
 
